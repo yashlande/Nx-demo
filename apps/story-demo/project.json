@@ -1,0 +1,73 @@
+{
+  "root": "apps/story-demo",
+  "sourceRoot": "apps/story-demo/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/story-demo",
+        "index": "apps/story-demo/src/index.html",
+        "baseHref": "/",
+        "main": "apps/story-demo/src/main.tsx",
+        "polyfills": "apps/story-demo/src/polyfills.ts",
+        "tsConfig": "apps/story-demo/tsconfig.app.json",
+        "assets": [
+          "apps/story-demo/src/favicon.ico",
+          "apps/story-demo/src/assets"
+        ],
+        "styles": ["apps/story-demo/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/story-demo/src/environments/environment.ts",
+              "with": "apps/story-demo/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "story-demo:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "story-demo:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/story-demo/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/story-demo"],
+      "options": {
+        "jestConfig": "apps/story-demo/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
